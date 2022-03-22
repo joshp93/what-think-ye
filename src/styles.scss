@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.contentWrapper {
+    width: 80%;
+    margin: auto;
+    padding-bottom: 3em;
+}
+.contentWrapper form {
+    padding: 0.5em;
+    background-color: rgba(211, 211, 211, 0.9);
+    border-radius: 5px;
+    margin-bottom: 1em;
+    margin-top: 1em;
+}
+.flexColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.flexColumn button {
+    align-self: flex-end;
+}

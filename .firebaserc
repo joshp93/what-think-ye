@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "what-think-ye": {
+      "hosting": {
+        "what-think-ye": [
+          "what-think-ye"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "what-think-ye"
+  }
+}
