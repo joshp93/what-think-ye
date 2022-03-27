@@ -1,0 +1,15 @@
+<ng-container *ngIf="thinkYe">
+    <div class="contentWrapper">
+        <h1>{{ thinkYe.question }}</h1>
+        <form class="flexColumn" [formGroup]="inputForm">
+            <mat-form-field appearance="standard">
+                <mat-label>Yout Thoughts?</mat-label>
+                <input matInput id="thought" name="thought" type="text" formControlName="thought">
+                <mat-error *ngIf="this.inputForm.get('thought').invalid">This field is required</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="submit()" [disabled]="!inputForm.valid" type="submit">
+                Submit
+            </button>
+        </form>
+    </div>
+</ng-container>

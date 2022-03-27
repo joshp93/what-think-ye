@@ -4,45 +4,67 @@ import { map } from 'rxjs';
 import { ThinkYe } from '../models/classes/think-ye';
 import { Thought } from '../models/classes/thought';
 import { User } from '../models/classes/user';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
 
-  constructor(private firestore: AngularFirestore) { }
+  user: User;
+  constructor(private firestore: AngularFirestore, private auth: AuthService) {
+    this.getUser().subscribe(fUser => {
+      if (fUser) {
+        this.user = new User(fUser.uid, fUser.email);
+        this.updateUserData(this.user);
+      }
+    });
+  }
 
-  private getThinkYesCollection = (uid: string): AngularFirestoreCollection<ThinkYe> => this.firestore.collection(`users/${uid}/think-yes`);
+  getUser() {
+    return this.auth.getAuthState();
+  }
 
-  private getThoughtsCollection = (uid: string, thinkYeId: string): AngularFirestoreCollection<Thought> => this.firestore.collection(`users/${uid}/think-yes/${thinkYeId}/thoughts`);
+  private getThinkYesCollectionRef = (uid: string): AngularFirestoreCollection<ThinkYe> => this.firestore.collection(`think-yes`, ref => ref.where("uid", "==", uid));
 
+  private getThinkYeDocumentRef = (thinkYeId: string): AngularFirestoreDocument<ThinkYe> => this.firestore.doc(`think-yes/${thinkYeId}`);
+
+  private getThoughtsCollectionRef = (thinkYeId: string): AngularFirestoreCollection<Thought> => this.firestore.collection(`think-yes/${thinkYeId}/thoughts`);
+
+  private getThoughtDocumentRef = (thinkYeId: string, thoughtId: string): AngularFirestoreDocument<Thought> => this.firestore.doc(`think-yes/${thinkYeId}/thoughts/${thoughtId}`);
 
   getUserValueChanges = (uid: string) => this.firestore.doc<User>(`users/${uid}`).valueChanges();
 
-  updateUserData({ uid, email }: User) {
-    const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${uid}`);
+  updateUserData(user: User) {
+    const userRef: AngularFirestoreDocument<User> = this.firestore.doc(`users/${user.uid}`);
 
     const data = {
-      uid,
-      email
+      uid: user.uid,
+      email: user.email
     };
     return userRef.set(data, { merge: true });
   }
 
-  getThinkYes(uid: string) {
-    let thinkYesCol = this.getThinkYesCollection(uid);
+  getThinkYes() {
+    let thinkYesCol = this.getThinkYesCollectionRef(this.user.uid);
 
     return thinkYesCol.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
-          return new ThinkYe(a.payload.doc.id, a.payload.doc.data().question, a.payload.doc.data().thoughts);
+          return new ThinkYe(a.payload.doc.id, a.payload.doc.data().question, a.payload.doc.data().uid);
         });
       })
     );
   }
 
-  getThoughtsForThinkYe(uid: string, thinkYeId: string) {
-    let thoughtsCol = this.getThoughtsCollection(uid, thinkYeId);
+  getThinkYe(thinkYeId: string) {
+    let thinkYeRef = this.getThinkYeDocumentRef(thinkYeId);
+
+    return thinkYeRef.valueChanges();
+  }
+
+  getThoughtsForThinkYe(thinkYeId: string) {
+    let thoughtsCol = this.getThoughtsCollectionRef(thinkYeId);
 
     return thoughtsCol.snapshotChanges().pipe(
       map(actions => {
@@ -53,16 +75,16 @@ export class FirestoreService {
     );
   }
 
-  createThinkYe(uid: string, thinkYe: ThinkYe) {
+  createThinkYe(thinkYe: ThinkYe) {
     return new Promise<boolean>((resolve, reject) => {
       if (!thinkYe.id) {
-        thinkYe.id = this.firestore.createId();
+        thinkYe.id = this.generateShortId();
       }
-      let thinkYeCol = this.getThinkYesCollection(uid);
+      let thinkYeCol = this.getThinkYesCollectionRef(thinkYe.uid);
       return thinkYeCol.doc(thinkYe.id).set({
         id: thinkYe.id,
         question: thinkYe.question,
-        thoughts: []
+        uid: this.user.uid
       }).then(() => resolve(true))
         .catch((reason) => {
           console.error(reason);
@@ -71,9 +93,14 @@ export class FirestoreService {
     });
   }
 
-  deleteThinkYe(uid: string, thinkYeId: string) {
+  createThought(thinkYeId: string, value: string) {
     return new Promise<boolean>((resolve, reject) => {
-      this.getThinkYesCollection(uid).doc(thinkYeId).delete().then(() => resolve(true))
+      const thoughtId = this.firestore.createId();
+      let thoughtDoc = this.getThoughtDocumentRef(thinkYeId, thoughtId);
+      return thoughtDoc.set({
+        id: thoughtId,
+        value: value
+      }).then(() => resolve(true))
         .catch((reason) => {
           console.error(reason);
           reject(false);
@@ -81,13 +108,31 @@ export class FirestoreService {
     });
   }
 
-  deleteThought(uid: string, thinkYeId: string, thoughtId: string) {
+  deleteThinkYe(thinkYe: ThinkYe) {
     return new Promise<boolean>((resolve, reject) => {
-      this.getThoughtsCollection(uid, thinkYeId).doc(thoughtId).delete().then(() => resolve(true))
+      this.getThinkYesCollectionRef(thinkYe.uid).doc(thinkYe.id).delete().then(() => resolve(true))
         .catch((reason) => {
           console.error(reason);
           reject(false);
         });
     });
+  }
+
+  deleteThought(thinkYeId: string, thoughtId: string) {
+    return new Promise<boolean>((resolve, reject) => {
+      this.getThoughtsCollectionRef(thinkYeId).doc(thoughtId).delete().then(() => resolve(true))
+        .catch((reason) => {
+          console.error(reason);
+          reject(false);
+        });
+    });
+  }
+
+  private generateShortId() {
+    let firstPart = (Math.random() * 46656).toString();
+    let secondPart = (Math.random() * 46656).toString();
+    firstPart = ("000" + firstPart).slice(-3);
+    secondPart = ("000" + secondPart).slice(-3);
+    return firstPart + secondPart;
   }
 }

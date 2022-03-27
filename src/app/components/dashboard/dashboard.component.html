@@ -1,6 +1,13 @@
 <h1>What Think Ye</h1>
-<h3 *ngIf="user">Dashboard for {{ user.email }}</h3>
-
-<input type="text" #question>
-<button (click)="createThinkYe(question.value)">Add Think Ye</button>
-<button *ngFor="let thinkYe of thinkYes" type="submit" (click)="getThoughts(thinkYe.id)">{{thinkYe.question}}</button>
+<p *ngIf="user">Hey 😎 - {{ user.email }}</p>
+<button mat-raised-button color="primary" (click)="createThinkYe()" class="question">Add a question</button>
+<h2>Your questions...</h2>
+<div class="flexColumn">
+    <div class="questionRow" *ngFor="let thinkYe of thinkYes">
+        <button mat-raised-button color="accent" (click)="openThinkYe(thinkYe.id)"
+            class="question">{{thinkYe.question}}</button>
+        <button mat-icon-button color="warn" (click)="deleteThinkYe(thinkYe)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

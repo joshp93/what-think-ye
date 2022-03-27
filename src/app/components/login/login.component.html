@@ -1,18 +1,16 @@
-<div class="contentWrapper">
-    <form class="flexColumn" [formGroup]="inputForm">
-        <mat-form-field appearance="standard">
-            <mat-label>Email</mat-label>
-            <input matInput id="email" name="email" type="email" formControlName="email" (blur)="checkValid()">
-            <mat-error *ngIf="this.inputForm.get('email').invalid">{{ errors.get("email") }}</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="standard">
-            <mat-label>Password</mat-label>
-            <input matInput id="password" name="password" type="password" formControlName="password"
-                (blur)="checkValid()">
-            <mat-error *ngIf="this.inputForm.get('password').invalid">{{ errors.get("password") }}</mat-error>
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="logIn()" [disabled]="buttonDisabled" type="submit">
-            {{ logInText }}
-        </button>
-    </form>
-</div>
+<h2>Please login to access the dashboard</h2>
+<form class="flexColumn" [formGroup]="inputForm">
+    <mat-form-field appearance="standard">
+        <mat-label>Email</mat-label>
+        <input matInput id="email" name="email" type="email" formControlName="email" (blur)="checkValid()">
+        <mat-error *ngIf="this.inputForm.get('email').invalid">{{ errors.get("email") }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="standard">
+        <mat-label>Password</mat-label>
+        <input matInput id="password" name="password" type="password" formControlName="password" (blur)="checkValid()">
+        <mat-error *ngIf="this.inputForm.get('password').invalid">{{ errors.get("password") }}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="logIn()" [disabled]="buttonDisabled" type="submit">
+        {{ logInText }}
+    </button>
+</form>

@@ -1,15 +1,14 @@
-import { Thought } from "./thought";
 
 export class ThinkYe {
     id: string;
     question: string;
-    thoughts: Thought[];
+    uid: string;
 
 
-  constructor(id: string, question: string, thoughts: Thought[]) {
+  constructor(id: string, question: string, uid: string) {
     this.id = id;
     this.question = question;
-    this.thoughts = thoughts;
+    this.uid = uid;
   }
     
 }

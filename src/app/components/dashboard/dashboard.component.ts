@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { NewThinkYeComponent } from 'src/app/dialogs/new-think-ye/new-think-ye.component';
 import { ThinkYe } from 'src/app/models/classes/think-ye';
 import { User } from 'src/app/models/classes/user';
-import { AuthService } from 'src/app/services/auth.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
 @Component({
@@ -15,19 +17,25 @@ export class DashboardComponent implements OnInit {
   question = "";
   user: User;
   
-  constructor(private firestoreService: FirestoreService, public auth: AuthService) { }
+  constructor(private firestoreService: FirestoreService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.auth.getAuthState().subscribe(fUser => {
+    this.firestoreService.getUser().subscribe(fUser => {
       this.user = new User(fUser.uid, fUser.email);
-      this.firestoreService.getThinkYes(this.user.uid).subscribe(results => this.thinkYes = results);
+      this.firestoreService.getThinkYes().subscribe(results => this.thinkYes = results);
     });
   }
 
-  getThoughts = (thinkYeId: string) => this.firestoreService.getThoughtsForThinkYe(this.user.uid, thinkYeId).subscribe(results => console.log(results));
+  createThinkYe() {
+    const dialogRef = this.dialog.open(NewThinkYeComponent).afterClosed().subscribe(value => {
+      if (value !== "###close###") {
+        this.firestoreService.createThinkYe(new ThinkYe("", value, this.user.uid));
+      }
+    });
+  }
 
-  createThinkYe = (question: string) => this.firestoreService.createThinkYe(this.user.uid, new ThinkYe("", question, []));
+  deleteThinkYe = (thinkYe: ThinkYe) => this.firestoreService.deleteThinkYe(thinkYe);
 
-  deleteThinkYe = (thinkYeId: string) => this.firestoreService.deleteThinkYe(this.user.uid, thinkYeId);
+  openThinkYe = (thinkYeId: string) => this.router.navigateByUrl(`${thinkYeId}/visualisation`);
 
 }

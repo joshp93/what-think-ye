@@ -1,27 +1,22 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
-import { AngularFirestore, AngularFirestoreDocument } from "@angular/fire/compat/firestore";
 import { Router } from '@angular/router';
-import { Observable, switchMap, of } from 'rxjs';
 import { User } from '../models/classes/user';
-import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private auth: AngularFireAuth, private router: Router, private firestoreService: FirestoreService) {
+  constructor(private auth: AngularFireAuth, private router: Router) {
   }
 
   getAuthState = () => this.auth.authState;
 
   logIn(email: string, password: string) {
     return new Promise((resolve, reject) => {
-      this.auth.signInWithEmailAndPassword(email, password).then((res) => {
-        let user = new User(res.user.uid, res.user.email);
-        this.firestoreService.updateUserData(user);
-        this.router.navigate(['/dashboard']);
+      this.auth.signInWithEmailAndPassword(email, password).then(() => {
+        this.router.navigateByUrl('/dashboard');
         resolve(true);
       })
         .catch((res) => {
@@ -33,8 +28,12 @@ export class AuthService {
 
   logOut() {
     this.auth.signOut().then(() => {
-      this.router.navigate(['/login']);
+      this.router.navigateByUrl('/login');
     })
       .catch(reason => console.error(reason));
+  }
+
+  registerUser(email: string, password: string) {
+    this.auth.createUserWithEmailAndPassword(email, password).then(() => this.router.navigateByUrl('/dashboard'));
   }
 }
