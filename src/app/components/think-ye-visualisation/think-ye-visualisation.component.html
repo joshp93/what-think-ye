@@ -1,7 +1,8 @@
 <ng-container *ngIf="thinkYe">
     <div class="center-text">
         <h1>{{ thinkYe.question }}</h1>
-        <h2>To respond to this question, go to: {{ questionUrl }}</h2>
+        <p>To respond to this question, go to <span>{{ origin }}</span> and enter code:</p>
+        <h2><span>{{ thinkYe.id }}</span></h2>
     </div>
     <ul>
         <li *ngFor="let thought of thoughts">{{ thought.value }}</li>

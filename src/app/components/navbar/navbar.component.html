@@ -1,0 +1,6 @@
+<nav *ngIf="user && show">
+    <button mat-button color="primary" (click)="goToDashboard()">What Think Ye?</button>
+
+    <button mat-button color="primary" (click)="authService.logOut()">Logout</button>
+</nav>
+<div class="spacer"></div>

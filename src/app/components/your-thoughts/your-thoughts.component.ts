@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ThinkYe } from 'src/app/models/classes/think-ye';
@@ -10,6 +11,9 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./your-thoughts.component.scss']
 })
 export class YourThoughtsComponent implements OnInit {
+  
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  
   inputForm: FormGroup;
   buttonDisabled: boolean;
   loading: boolean;

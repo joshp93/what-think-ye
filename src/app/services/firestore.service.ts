@@ -75,7 +75,7 @@ export class FirestoreService {
     );
   }
 
-  createThinkYe(thinkYe: ThinkYe) {
+  setThinkYe(thinkYe: ThinkYe) {
     return new Promise<boolean>((resolve, reject) => {
       if (!thinkYe.id) {
         thinkYe.id = this.generateShortId();

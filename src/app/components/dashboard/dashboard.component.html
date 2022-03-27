@@ -1,11 +1,14 @@
-<h1>What Think Ye</h1>
-<p *ngIf="user">Hey 😎 - {{ user.email }}</p>
-<button mat-raised-button color="primary" (click)="createThinkYe()" class="question">Add a question</button>
-<h2>Your questions...</h2>
+<div class="flexRow">
+    <h2>Your questions</h2>
+    <button mat-icon-button color="primary" (click)="createThinkYe()"><mat-icon>add</mat-icon></button>
+</div>
 <div class="flexColumn">
     <div class="questionRow" *ngFor="let thinkYe of thinkYes">
-        <button mat-raised-button color="accent" (click)="openThinkYe(thinkYe.id)"
+        <button mat-flat-button color="accent" (click)="openThinkYe(thinkYe.id)"
             class="question">{{thinkYe.question}}</button>
+        <button mat-icon-button color="primary" (click)="editThinkYe(thinkYe)">
+            <mat-icon>edit</mat-icon>
+        </button>   
         <button mat-icon-button color="warn" (click)="deleteThinkYe(thinkYe)">
             <mat-icon>delete</mat-icon>
         </button>

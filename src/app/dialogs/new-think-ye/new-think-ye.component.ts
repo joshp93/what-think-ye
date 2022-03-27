@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { take } from 'rxjs';
+import { ThinkYe } from 'src/app/models/classes/think-ye';
 
 @Component({
   selector: 'app-new-think-ye',
@@ -8,13 +11,16 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./new-think-ye.component.scss']
 })
 export class NewThinkYeComponent implements OnInit {
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  
   inputForm: FormGroup;
   
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<NewThinkYeComponent>) { }
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<NewThinkYeComponent>, @Inject(MAT_DIALOG_DATA) private thinkYe: ThinkYe) {
+  }
 
   ngOnInit(): void {
     this.inputForm = this.fb.group({
-      question: new FormControl('', [Validators.required]),
+      question: new FormControl((this.thinkYe ? this.thinkYe.question : ''), [Validators.required]),
     });
   }
 

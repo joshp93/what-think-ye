@@ -18,6 +18,9 @@ import { LoginComponent } from './components/login/login.component';
 import { ThinkYeVisualisationComponent } from './components/think-ye-visualisation/think-ye-visualisation.component';
 import { YourThoughtsComponent } from './components/your-thoughts/your-thoughts.component';
 import { NewThinkYeComponent } from './dialogs/new-think-ye/new-think-ye.component';
+import { HomeComponent } from './components/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { RegisterComponent } from './components/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +28,10 @@ import { NewThinkYeComponent } from './dialogs/new-think-ye/new-think-ye.compone
     DashboardComponent,
     ThinkYeVisualisationComponent,
     YourThoughtsComponent,
-    NewThinkYeComponent
+    NewThinkYeComponent,
+    HomeComponent,
+    NavbarComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

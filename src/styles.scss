@@ -26,6 +26,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
 }
 form .flexColumn button {
     align-self: flex-end;

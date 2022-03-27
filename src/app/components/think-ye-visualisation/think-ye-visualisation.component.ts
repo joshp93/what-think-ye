@@ -12,13 +12,12 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 export class ThinkYeVisualisationComponent implements OnInit {
   thinkYe: ThinkYe;
   thoughts: Thought[];
-  questionUrl = "";
+  origin = window.origin;
 
   constructor(private route: ActivatedRoute, private firestoreService: FirestoreService) {
     const thinkYeId = route.snapshot.url[0].path;
     firestoreService.getThinkYe(thinkYeId).subscribe(result => {
       this.thinkYe = result;
-      this.questionUrl = `${location.origin}/${thinkYeId}`;
     });
     firestoreService.getThoughtsForThinkYe(thinkYeId).subscribe(results => this.thoughts = results);
   }

@@ -10,8 +10,12 @@
         <input matInput id="password" name="password" type="password" formControlName="password" (blur)="checkValid()">
         <mat-error *ngIf="this.inputForm.get('password').invalid">{{ errors.get("password") }}</mat-error>
     </mat-form-field>
-    <button mat-flat-button color="primary" (click)="logIn()" [disabled]="buttonDisabled" type="submit">
-        {{ logInText }}
+    <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput id="passwordConfirm" name="passwordConfirm" type="password" formControlName="passwordConfirm" (blur)="checkValid()">
+        <mat-error *ngIf="this.inputForm.get('passwordConfirm').invalid">{{ errors.get("passwordConfirm") }}</mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="register()" [disabled]="buttonDisabled" type="submit">
+        {{ registerText }}
     </button>
-    <a routerLink="../register" class="center-text register">Register</a>
 </form>

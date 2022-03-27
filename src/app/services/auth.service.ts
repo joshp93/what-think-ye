@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import { Router } from '@angular/router';
-import { User } from '../models/classes/user';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +18,8 @@ export class AuthService {
         this.router.navigateByUrl('/dashboard');
         resolve(true);
       })
-        .catch((res) => {
-          alert(res.message);
+        .catch((reason) => {
+          console.error(reason);
           reject(false);
         });
     });
@@ -28,12 +27,21 @@ export class AuthService {
 
   logOut() {
     this.auth.signOut().then(() => {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl('/home');
     })
       .catch(reason => console.error(reason));
   }
 
   registerUser(email: string, password: string) {
-    this.auth.createUserWithEmailAndPassword(email, password).then(() => this.router.navigateByUrl('/dashboard'));
+    return new Promise((resolve, reject) => {
+      this.auth.createUserWithEmailAndPassword(email, password).then(() => {
+        this.router.navigateByUrl('/dashboard');
+        resolve(true);
+      })
+        .catch((res) => {
+          reason => console.error(reason)
+          reject(false);
+        });
+    });
   }
 }

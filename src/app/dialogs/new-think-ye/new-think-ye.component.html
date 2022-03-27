@@ -1,13 +1,15 @@
 <h1>What's your question?</h1>
 <form class="flexColumn" [formGroup]="inputForm">
-    <mat-form-field appearance="standard">
+    <mat-form-field appearance="outline">
         <mat-label>Question</mat-label>
-        <input matInput id="question" name="question" type="email" formControlName="question">
+        <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" id="question" name="question"
+            type="email" formControlName="question"></textarea>
         <mat-error *ngIf="this.inputForm.get('question').invalid">This field is required</mat-error>
     </mat-form-field>
     <div class="flexRow">
-        <button mat-raised-button color="warn" (click)="cancel()" type="button">Cancel</button>
+        <button mat-flat-button color="warn" (click)="cancel()" type="button">Cancel</button>
         <span></span>
-        <button mat-raised-button color="primary" (click)="submit()" [disabled]="!inputForm.valid" type="submit">Submit</button>
+        <button mat-flat-button color="primary" (click)="submit()" [disabled]="!inputForm.valid"
+            type="submit">Submit</button>
     </div>
 </form>

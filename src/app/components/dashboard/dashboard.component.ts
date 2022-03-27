@@ -27,9 +27,9 @@ export class DashboardComponent implements OnInit {
   }
 
   createThinkYe() {
-    const dialogRef = this.dialog.open(NewThinkYeComponent).afterClosed().subscribe(value => {
+    this.dialog.open(NewThinkYeComponent).afterClosed().subscribe(value => {
       if (value !== "###close###") {
-        this.firestoreService.createThinkYe(new ThinkYe("", value, this.user.uid));
+        this.firestoreService.setThinkYe(new ThinkYe("", value, this.user.uid));
       }
     });
   }
@@ -37,5 +37,14 @@ export class DashboardComponent implements OnInit {
   deleteThinkYe = (thinkYe: ThinkYe) => this.firestoreService.deleteThinkYe(thinkYe);
 
   openThinkYe = (thinkYeId: string) => this.router.navigateByUrl(`${thinkYeId}/visualisation`);
+
+  editThinkYe(thinkYe: ThinkYe) {
+    this.dialog.open(NewThinkYeComponent, { data: thinkYe }).afterClosed().subscribe(value => {
+      if (value !== "###close###") {
+        thinkYe.question = value;
+        this.firestoreService.setThinkYe(thinkYe);
+      }
+    });
+  }
 
 }

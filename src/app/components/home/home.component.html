@@ -1,0 +1,12 @@
+<p>Welcome, please enter the code for the question you with to answer below</p>
+<form class="flexColumn" [formGroup]="inputForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Code</mat-label>
+        <input matInput id="code" name="code" type="number" formControlName="code">
+        <mat-error *ngIf="this.inputForm.get('code').invalid">This will be a 6 digit code</mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary" (click)="submit()" [disabled]="!inputForm.valid" type="submit">
+        Submit
+    </button>
+</form>
+<p>A quick note: This doesn't store any of your personal data and you won't need to sign in / up. Only your response will be recorded</p>
