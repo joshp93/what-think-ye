@@ -21,6 +21,7 @@ import { NewThinkYeComponent } from './dialogs/new-think-ye/new-think-ye.compone
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
+import { CompletedComponent } from './components/completed/completed.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +32,8 @@ import { RegisterComponent } from './components/register/register.component';
     NewThinkYeComponent,
     HomeComponent,
     NavbarComponent,
-    RegisterComponent
+    RegisterComponent,
+    CompletedComponent
   ],
   imports: [
     BrowserModule,

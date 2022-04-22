@@ -1,7 +1,7 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ThinkYe } from 'src/app/models/classes/think-ye';
 import { FirestoreService } from 'src/app/services/firestore.service';
 
@@ -20,7 +20,7 @@ export class YourThoughtsComponent implements OnInit {
   submitText: string;
   thinkYe: ThinkYe;
 
-  constructor(private fb: FormBuilder, private route: ActivatedRoute, private firestoreService: FirestoreService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private firestoreService: FirestoreService, private router: Router) {
     const thinkYeId = route.snapshot.url[0].path;
     firestoreService.getThinkYe(thinkYeId).subscribe(result => this.thinkYe = result);
   }
@@ -39,7 +39,7 @@ export class YourThoughtsComponent implements OnInit {
   }
 
   submit() {
-    this.firestoreService.createThought(this.thinkYe.id, this.inputForm.controls['thought'].value).then(() => alert("Aren't you a clever boo?"));
+    this.firestoreService.createThought(this.thinkYe.id, this.inputForm.controls['thought'].value).then(() => this.router.navigateByUrl("success"));
   }
 
 }
