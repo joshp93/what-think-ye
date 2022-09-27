@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,20 +9,20 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  inputForm: FormGroup;
+  inputForm: UntypedFormGroup;
   buttonDisabled: boolean;
   loading: boolean;
   logInText: string;
   errors: Map<string, string>;
 
-  constructor(private fb: FormBuilder, public auth: AuthService, private router: Router) {
+  constructor(private fb: UntypedFormBuilder, public auth: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
     this.setLoadingState(false);
     this.inputForm = this.fb.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', Validators.required)
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', Validators.required)
     });
     this.initErrors();
   }

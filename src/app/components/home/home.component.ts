@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  inputForm: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) { }
+  inputForm: UntypedFormGroup;
+  constructor(private fb: UntypedFormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.inputForm = this.fb.group({
-      code: new FormControl('', [Validators.required, Validators.pattern("^[0-9]{6}$")])
+      code: new UntypedFormControl('', [Validators.required, Validators.pattern("^[0-9]{6}$")])
     });
   }
 

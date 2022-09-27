@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,20 +8,20 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  inputForm: FormGroup;
+  inputForm: UntypedFormGroup;
   buttonDisabled: boolean;
   loading: boolean;
   registerText: string;
   errors: Map<string, string>;
 
-  constructor(private fb: FormBuilder, public auth: AuthService) { }
+  constructor(private fb: UntypedFormBuilder, public auth: AuthService) { }
 
   ngOnInit(): void {
     this.setLoadingState(false);
     this.inputForm = this.fb.group({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-      passwordConfirm: new FormControl('', [Validators.required])
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      password: new UntypedFormControl('', [Validators.required]),
+      passwordConfirm: new UntypedFormControl('', [Validators.required])
     })
     this.initErrors();
   }
