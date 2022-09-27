@@ -4,7 +4,7 @@
         <p>To respond to this question, go to <span>{{ origin }}</span> and enter code:</p>
         <h2><span>{{ thinkYe.id }}</span></h2>
     </div>
-    <ul>
-        <li *ngFor="let thought of thoughts">{{ thought.value }}</li>
-    </ul>
+    <div class="grid" [ngStyle]="{'grid-template-columns': 'repeat(' + columnCount + ', 1fr)'}" *ngIf="thoughts">
+        <div class="response" *ngFor="let thought of thoughts" [ngStyle]="{ 'background': thought.colour }">{{ thought.value }}</div>
+    </div>
 </ng-container>

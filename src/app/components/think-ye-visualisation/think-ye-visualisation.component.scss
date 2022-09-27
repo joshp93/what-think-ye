@@ -4,3 +4,11 @@ h2 {
 span {
     color: firebrick;
 }
+.grid {
+    display: grid;
+    justify-content: center;
+    .response {
+        padding: 5px;
+        border-radius: 10px;
+    }
+}
