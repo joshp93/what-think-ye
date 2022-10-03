@@ -1,14 +1,16 @@
 <ng-container *ngIf="thinkYe">
-    <h1>{{ thinkYe.question }}</h1>
-    <form class="flexColumn" [formGroup]="inputForm">
-        <mat-form-field appearance="outline">
-            <mat-label>Yout Thoughts?</mat-label>
-            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" id="thought" name="thought"
-                type="text" formControlName="thought"></textarea>
-            <mat-error *ngIf="this.inputForm.get('thought').invalid">This field is required</mat-error>
-        </mat-form-field>
-        <button mat-flat-button color="primary" (click)="submit()" [disabled]="!inputForm.valid" type="submit">
-            Submit
-        </button>
-    </form>
+    <div class="contentWrapper">
+        <h1>{{ thinkYe.question }}</h1>
+        <form class="flexColumn" [formGroup]="inputForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Yout Thoughts? {{ 150 - inputForm.get('thought').value.length }} characters left</mat-label>
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" id="thought" name="thought"
+                    type="text" formControlName="thought" maxlength="150"></textarea>
+                <mat-error *ngIf="inputForm.get('thought').invalid">This field is required</mat-error>
+            </mat-form-field>
+            <button mat-flat-button color="primary" (click)="submit()" [disabled]="!inputForm.valid" type="submit">
+                Submit
+            </button>
+        </form>
+    </div>
 </ng-container>

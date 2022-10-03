@@ -24,6 +24,7 @@ export class YourThoughtsComponent implements OnInit {
     const thinkYeId = route.snapshot.url[0].path;
     firestoreService.getThinkYe(thinkYeId).subscribe(result => this.thinkYe = result);
   }
+  
 
   ngOnInit(): void {
     this.setLoadingState(false);

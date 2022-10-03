@@ -14,11 +14,22 @@ export class ColourPickerService {
   getRandomColour = () => this.getRandomElementFromArray(this.colours, this.usedColours);
 
   private loadColours = () => this.colours = [
-    "#FFCE30",
-    "#E83845",
-    "#E389B9",
-    "#746AB0",
-    "#288BA8"
+    "#D98880",
+    "#EC7063",
+    "#C39BD3",
+    "#BB8FCE",
+    "#5499C7",
+    "#85C1E9",
+    "#76D7C4",
+    "#7DCEA0",
+    "#7DCEA0",
+    "#F8C471",
+    "#F0B27A",
+    "#E59866",
+    "#ECF0F1",
+    "#D7DBDD",
+    "#85929E",
+    "#DFFF00"
   ]
 
   private getRandomElementFromArray(array: Array<string>, usedArray: Array<string>): string {

@@ -1,16 +1,18 @@
-<div class="flexRow">
-    <h2>Your questions</h2>
-    <button mat-icon-button color="primary" (click)="createThinkYe()"><mat-icon>add</mat-icon></button>
-</div>
-<div class="flexColumn">
-    <div class="questionRow" *ngFor="let thinkYe of thinkYes">
-        <button mat-flat-button color="accent" (click)="openThinkYe(thinkYe.id)"
-            class="question">{{thinkYe.question}}</button>
-        <button mat-icon-button color="primary" (click)="editThinkYe(thinkYe)">
-            <mat-icon>edit</mat-icon>
-        </button>   
-        <button mat-icon-button color="warn" (click)="deleteThinkYe(thinkYe)">
-            <mat-icon>delete</mat-icon>
-        </button>
+<div class="contentWrapper">
+    <div class="flexRow">
+        <h2>Your questions</h2>
+        <button mat-icon-button color="primary" (click)="createThinkYe()"><mat-icon>add</mat-icon></button>
+    </div>
+    <div class="flexColumn">
+        <div class="questionRow" *ngFor="let thinkYe of thinkYes">
+            <button mat-flat-button color="accent" (click)="openThinkYe(thinkYe.id)"
+                class="question">{{thinkYe.question}}</button>
+            <button mat-icon-button color="primary" (click)="editThinkYe(thinkYe)">
+                <mat-icon>edit</mat-icon>
+            </button>   
+            <button mat-icon-button color="warn" (click)="deleteThinkYe(thinkYe)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
     </div>
 </div>

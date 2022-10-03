@@ -15,6 +15,7 @@ export class ThinkYeVisualisationComponent implements OnInit {
   thoughts: Thought[] = new Array();
   origin = window.origin;
   columnCount = 1;
+  selectedThought: Thought;
 
   constructor(private route: ActivatedRoute, private firestoreService: FirestoreService, private colourPickerService: ColourPickerService) {
     const thinkYeId = route.snapshot.url[0].path;

@@ -1,8 +1,18 @@
+h1 {
+    font-size: 2rem;
+}
 h2 {
+    font-size: 2rem;
     word-wrap: break-word;
+}
+p {
+    font-size: 1.5rem;
 }
 span {
     color: firebrick;
+}
+.container {
+    padding-top: 10px;
 }
 .grid {
     display: grid;
@@ -10,5 +20,11 @@ span {
     .response {
         padding: 5px;
         border-radius: 10px;
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.5);
+            transform-origin: center;
+            transition: all 500ms ease-in-out;
+        }
     }
 }
