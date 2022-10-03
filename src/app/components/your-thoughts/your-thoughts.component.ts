@@ -19,6 +19,7 @@ export class YourThoughtsComponent implements OnInit {
   loading: boolean;
   submitText: string;
   thinkYe: ThinkYe;
+  maxResponseLength = 200;
 
   constructor(private fb: UntypedFormBuilder, private route: ActivatedRoute, private firestoreService: FirestoreService, private router: Router) {
     const thinkYeId = route.snapshot.url[0].path;

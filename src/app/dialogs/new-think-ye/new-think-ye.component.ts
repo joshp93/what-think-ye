@@ -1,8 +1,7 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, Inject, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { take } from 'rxjs';
 import { ThinkYe } from 'src/app/models/classes/think-ye';
 
 @Component({

@@ -3,9 +3,9 @@
         <h1>{{ thinkYe.question }}</h1>
         <form class="flexColumn" [formGroup]="inputForm">
             <mat-form-field appearance="outline">
-                <mat-label>Yout Thoughts? {{ 150 - inputForm.get('thought').value.length }} characters left</mat-label>
+                <mat-label>Yout Thoughts? {{ maxResponseLength - inputForm.get('thought').value.length }} characters left</mat-label>
                 <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" id="thought" name="thought"
-                    type="text" formControlName="thought" maxlength="150"></textarea>
+                    type="text" formControlName="thought" [maxlength]="maxResponseLength"></textarea>
                 <mat-error *ngIf="inputForm.get('thought').invalid">This field is required</mat-error>
             </mat-form-field>
             <button mat-flat-button color="primary" (click)="submit()" [disabled]="!inputForm.valid" type="submit">
