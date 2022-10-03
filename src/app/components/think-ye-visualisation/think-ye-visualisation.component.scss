@@ -23,7 +23,6 @@ span {
         &:hover {
             cursor: pointer;
             transform: scale(1.5);
-            transform-origin: center;
             transition: all 500ms ease-in-out;
         }
     }

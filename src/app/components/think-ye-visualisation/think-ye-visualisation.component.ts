@@ -16,6 +16,8 @@ export class ThinkYeVisualisationComponent implements OnInit {
   origin = window.origin;
   columnCount = 1;
   selectedThought: Thought;
+  transformOrigin = "center";
+  maxColumnCount = 10;
 
   constructor(private route: ActivatedRoute, private firestoreService: FirestoreService, private colourPickerService: ColourPickerService) {
     const thinkYeId = route.snapshot.url[0].path;
@@ -37,15 +39,35 @@ export class ThinkYeVisualisationComponent implements OnInit {
   }
 
   private updateColumnCount() {
-    let maxColumnCount = 10;
+    this.maxColumnCount = 10;
     if (window.innerWidth <= 500) {
-      maxColumnCount = 4;
+      this.maxColumnCount = 4;
     } else if (window.innerWidth <= 800) {
-      maxColumnCount = 7;
+      this.maxColumnCount = 7;
     }
-    this.columnCount = this.thoughts.length <= maxColumnCount ? this.thoughts.length : maxColumnCount;
+    this.columnCount = this.thoughts.length <= this.maxColumnCount ? this.thoughts.length : this.maxColumnCount;
   }
 
   ngOnInit(): void {
+  }
+
+  determineTransformOrigin(thought: Thought, i: number) {
+    if (this.thoughts.length < this.maxColumnCount) {
+      if (i === 0) {
+        this.transformOrigin = "left";
+      } else if (i === this.thoughts.length - 1) {
+        this.transformOrigin = "right";
+      } else {
+        this.transformOrigin = "center";
+      }
+    } else {
+      if (i % this.maxColumnCount === 0 || i === 0) {
+        this.transformOrigin = "left";
+      } else if ((i + 1) % this.maxColumnCount === 0) {
+        this.transformOrigin = "right"
+      } else {
+        this.transformOrigin = "center";
+      }
+    }
   }
 }

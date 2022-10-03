@@ -5,6 +5,8 @@
         <h2><span>{{ thinkYe.id }}</span></h2>
     </div>
     <div class="grid" [ngStyle]="{'grid-template-columns': 'repeat(' + columnCount + ', 1fr)'}" *ngIf="thoughts">
-        <div class="response" *ngFor="let thought of thoughts" [ngStyle]="{ 'background': thought.colour }">{{ thought.value }}</div>
+        <div class="response" *ngFor="let thought of thoughts; index as i"
+            [ngStyle]="{ 'background': thought.colour, 'transform-origin': transformOrigin }"
+            (mouseover)="determineTransformOrigin(thought, i)">{{ thought.value }}</div>
     </div>
 </ng-container>
