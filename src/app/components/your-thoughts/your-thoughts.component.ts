@@ -11,9 +11,9 @@ import { FirestoreService } from 'src/app/services/firestore.service';
   styleUrls: ['./your-thoughts.component.scss']
 })
 export class YourThoughtsComponent implements OnInit {
-  
+
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
-  
+
   inputForm: UntypedFormGroup;
   buttonDisabled: boolean;
   loading: boolean;
@@ -23,9 +23,15 @@ export class YourThoughtsComponent implements OnInit {
 
   constructor(private fb: UntypedFormBuilder, private route: ActivatedRoute, private firestoreService: FirestoreService, private router: Router) {
     const thinkYeId = route.snapshot.url[0].path;
-    firestoreService.getThinkYe(thinkYeId).subscribe(result => this.thinkYe = result);
+    firestoreService.getThinkYe(thinkYeId).subscribe(result => {
+      if (result) {
+        this.thinkYe = result;
+      } else {
+        this.router.navigateByUrl("home");
+      }
+    });
   }
-  
+
 
   ngOnInit(): void {
     this.setLoadingState(false);
