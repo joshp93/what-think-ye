@@ -3,9 +3,10 @@
     <form class="flexColumn" [formGroup]="inputForm">
         <mat-form-field appearance="outline">
             <mat-label>Code</mat-label>
-            <input matInput id="code" name="code" type="number" formControlName="code">
+            <input matInput id="code" name="code" type="number" formControlName="code" (change)="error = false">
             <mat-error *ngIf="this.inputForm.get('code').invalid">This will be a 6 digit code</mat-error>
         </mat-form-field>
+        <p *ngIf="error" class="error">The code you entered is invalid, please check and try again</p>
         <button mat-flat-button color="primary" (click)="submit()" [disabled]="!inputForm.valid" type="submit">
             Submit
         </button>
