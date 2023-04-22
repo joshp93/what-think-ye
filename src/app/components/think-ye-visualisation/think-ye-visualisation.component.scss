@@ -18,12 +18,47 @@ span {
     display: grid;
     justify-content: center;
     .response {
+        margin: 2px;
         padding: 5px;
         border-radius: 10px;
+        transition: all 500ms ease-in-out;
         &:hover {
             cursor: pointer;
             transform: scale(1.5);
-            transition: all 500ms ease-in-out;
+        }
+
+        button {
+            float: right;
+            size: 3rem;
         }
     }
+    
+    .selected {
+        position: fixed;
+        top: 20%;
+        left: 10%;
+        min-height: 60%;
+        width: 80%;
+        font-size: 2rem;
+        line-height: 2.5rem;
+        z-index: 10;
+        transition: none;
+        
+        &:hover {
+            transform: none;
+            cursor: initial;
+        }
+    }
+}
+
+.selected-background {
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 9;
+    background: whitesmoke;
+    opacity: 0.5;
 }

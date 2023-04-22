@@ -18,6 +18,7 @@ export class ThinkYeVisualisationComponent implements OnInit {
   selectedThought: Thought;
   transformOrigin = "center";
   maxColumnCount = 10;
+  selected = false;
 
   constructor(private route: ActivatedRoute, private firestoreService: FirestoreService, private colourPickerService: ColourPickerService) {
     const thinkYeId = route.snapshot.url[0].path;
@@ -69,5 +70,23 @@ export class ThinkYeVisualisationComponent implements OnInit {
         this.transformOrigin = "center";
       }
     }
+  }
+
+  selectResponse(thought: Thought) {
+    this.thoughts
+      .filter(t => t.id !== thought.id)
+      .forEach(t => t.selected = false);
+    thought.selected = true;
+    this.selected = true;
+  }
+
+  unSelectResponse(thought: Thought) {
+    thought.selected = false;
+    this.selected = false;
+  }
+
+  deleteThought(thought: Thought) {
+    this.unSelectResponse(thought);
+    this.firestoreService.deleteThought(this.thinkYe.id, thought.id);
   }
 }

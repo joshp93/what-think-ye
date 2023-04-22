@@ -7,6 +7,17 @@
     <div class="grid" [ngStyle]="{'grid-template-columns': 'repeat(' + columnCount + ', 1fr)'}" *ngIf="thoughts">
         <div class="response" *ngFor="let thought of thoughts; index as i"
             [ngStyle]="{ 'background': thought.colour, 'transform-origin': transformOrigin }"
-            (mouseover)="determineTransformOrigin(thought, i)">{{ thought.value }}</div>
+            [ngClass]="thought.selected ? 'selected' : ''" (mouseover)="determineTransformOrigin(thought, i)"
+            (click)="selectResponse(thought)" appClickOutside
+            (onClickOutside)="thought.selected && unSelectResponse(thought)">
+            <ng-container *ngIf="thought.selected">
+                <button mat-icon-button color="warn" (click)="deleteThought(thought)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <br>
+            </ng-container>
+            {{ thought.value }}
+        </div>
     </div>
+    <div class="selected-background" *ngIf="selected"></div>
 </ng-container>

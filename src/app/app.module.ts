@@ -22,6 +22,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CompletedComponent } from './components/completed/completed.component';
+import { ClickOutsideDirective } from './directives/click-outside.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { CompletedComponent } from './components/completed/completed.component';
     HomeComponent,
     NavbarComponent,
     RegisterComponent,
-    CompletedComponent
+    CompletedComponent,
+    ClickOutsideDirective
   ],
   imports: [
     BrowserModule,
