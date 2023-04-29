@@ -1,27 +1,39 @@
 h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    line-height: 3rem;
 }
+
 h2 {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    line-height: 3rem;
     word-wrap: break-word;
 }
+
 p {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    line-height: 2.5rem;
 }
+
 span {
     color: firebrick;
 }
+
 .container {
     padding-top: 10px;
 }
+
 .grid {
     display: grid;
     justify-content: center;
+
     .response {
         margin: 2px;
         padding: 5px;
         border-radius: 10px;
+        font-size: 2rem;
+        line-height: 2.5rem;
         transition: all 500ms ease-in-out;
+
         &:hover {
             cursor: pointer;
             transform: scale(1.5);
@@ -31,18 +43,18 @@ span {
             float: right;
         }
     }
-    
+
     .selected {
         position: fixed;
         top: 20%;
         left: 10%;
         min-height: 60%;
         width: 80%;
-        font-size: 2rem;
-        line-height: 2.5rem;
+        font-size: 2.5rem;
+        line-height: 3rem;
         z-index: 10;
         transition: none;
-        
+
         &:hover {
             transform: none;
             cursor: initial;
@@ -60,4 +72,32 @@ span {
     z-index: 9;
     background: whitesmoke;
     opacity: 0.5;
+}
+
+.smaller-font {
+    h1 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        word-wrap: break-word;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    .response {
+        font-size: 1rem;
+        line-height: 1.5rem;
+
+        .selected {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+    }
 }

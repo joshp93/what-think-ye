@@ -40,11 +40,15 @@ export class ThinkYeVisualisationComponent implements OnInit {
   }
 
   private updateColumnCount() {
-    this.maxColumnCount = 10;
+    this.maxColumnCount = 5;
     if (window.innerWidth <= 500) {
-      this.maxColumnCount = 4;
+      this.maxColumnCount = 1;
     } else if (window.innerWidth <= 800) {
-      this.maxColumnCount = 7;
+      this.maxColumnCount = 2;
+    } else if (window.innerWidth <= 1000) {
+      this.maxColumnCount = 3;
+    } else if (window.innerWidth <= 1200) {
+      this.maxColumnCount = 4
     }
     this.columnCount = this.thoughts.length <= this.maxColumnCount ? this.thoughts.length : this.maxColumnCount;
   }
@@ -71,6 +75,12 @@ export class ThinkYeVisualisationComponent implements OnInit {
       }
     }
   }
+
+  determineResponseClasses = (thought: Thought) => Array.of(this.determineThoughtSelected(thought), this.determineFontSize(thought))
+
+  determineThoughtSelected = (thought: Thought) => thought.selected ? "selected" : "";
+
+  determineFontSize = (thought: Thought) => this.maxColumnCount <= 3 ? "smaller-font" : "";
 
   selectResponse(thought: Thought) {
     this.thoughts
