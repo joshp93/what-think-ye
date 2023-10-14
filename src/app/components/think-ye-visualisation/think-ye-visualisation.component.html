@@ -1,8 +1,15 @@
 <ng-container *ngIf="thinkYe">
-    <div class="center-text container">
-        <h1>{{ thinkYe.question }}</h1>
-        <p>To respond to this question, go to <span>{{ origin }}</span> and enter code:</p>
-        <h2><span>{{ thinkYe.id }}</span></h2>
+    <div class="container">
+        <h1 [innerHTML]="thinkYe.getHTMLFriendlyQuestion()"></h1>
+        <span class="spacer"></span>
+        <div class="how-to-respond">
+            <div *ngIf="qrCode">
+                <img [src]="qrCode" alt="QR code">
+                <br>
+            </div>
+            <p>Respond to this question <span>{{ origin }}</span></p>
+            <h2><span>Code: {{ thinkYe.id }}</span></h2>
+        </div>
     </div>
     <div class="grid" [ngStyle]="{'grid-template-columns': 'repeat(' + columnCount + ', 1fr)'}" *ngIf="thoughts">
         <div class="response" *ngFor="let thought of thoughts; index as i"

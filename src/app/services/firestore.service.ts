@@ -60,7 +60,9 @@ export class FirestoreService {
   getThinkYe(thinkYeId: string) {
     let thinkYeRef = this.getThinkYeDocumentRef(thinkYeId);
 
-    return thinkYeRef.valueChanges();
+    return thinkYeRef.valueChanges().pipe(
+      map(thinkYe => new ThinkYe(thinkYe.id, thinkYe.question, thinkYe.uid))
+    )
   }
 
   getThoughtsForThinkYe(thinkYeId: string) {
@@ -85,7 +87,7 @@ export class FirestoreService {
         id: thinkYe.id,
         question: thinkYe.question,
         uid: this.user.uid
-      }).then(() => resolve(true))
+      } as ThinkYe).then(() => resolve(true))
         .catch((reason) => {
           console.error(reason);
           reject(false);

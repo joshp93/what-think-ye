@@ -4,6 +4,7 @@ import { ThinkYe } from 'src/app/models/classes/think-ye';
 import { Thought } from 'src/app/models/classes/thought';
 import { ColourPickerService } from 'src/app/services/colour-picker.service';
 import { FirestoreService } from 'src/app/services/firestore.service';
+import { QrCodeService } from 'src/app/services/qr-code.service';
 
 @Component({
   selector: 'app-think-ye-visualisation',
@@ -19,15 +20,20 @@ export class ThinkYeVisualisationComponent implements OnInit {
   transformOrigin = "center";
   maxColumnCount = 10;
   selected = false;
+  qrCode: string | ArrayBuffer;
 
-  constructor(private route: ActivatedRoute, private firestoreService: FirestoreService, private colourPickerService: ColourPickerService) {
+  constructor(private route: ActivatedRoute, private firestoreService: FirestoreService, private colourPickerService: ColourPickerService, public qrCodeService: QrCodeService) {
     const thinkYeId = route.snapshot.url[0].path;
-    firestoreService.getThinkYe(thinkYeId).subscribe(result => this.thinkYe = result);
+    firestoreService.getThinkYe(thinkYeId).subscribe(result => {
+      this.thinkYe = result;
+      this.qrCodeService.getQRCode(this.thinkYe.id).then(qrCode => this.qrCode = qrCode);
+    });
     firestoreService.getThoughtsForThinkYe(thinkYeId).subscribe(results => {
       this.thoughts = new Array();
       results.forEach(result => this.thoughts.push(new Thought(result.id, result.value, this.colourPickerService.getRandomColour())));
       this.updateColumnCount();
     });
+
   }
 
   @HostListener('window:resize', ['$event'])

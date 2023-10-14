@@ -19,7 +19,17 @@ span {
 }
 
 .container {
-    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    .how-to-respond {
+        text-align: center;
+        width: 400px;
+    }
+    margin: 10px 20px;
+    border-bottom: 1px solid black;
+    .spacer {
+        margin: auto;
+    }
 }
 
 .grid {

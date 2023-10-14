@@ -23,6 +23,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { CompletedComponent } from './components/completed/completed.component';
 import { ClickOutsideDirective } from './directives/click-outside.directive';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +51,8 @@ import { ClickOutsideDirective } from './directives/click-outside.directive';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [
     // { provide: MatDialogRef, useValue: [] }

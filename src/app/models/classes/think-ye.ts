@@ -10,5 +10,11 @@ export class ThinkYe {
     this.question = question;
     this.uid = uid;
   }
+
+  getHTMLFriendlyQuestion() {
+    let result = this.question.split("\n").join("<br>");
+    result = result.split("\t").join("&nbsp;");
+    return result;
+  }
     
 }
